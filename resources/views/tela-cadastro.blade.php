@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
-    <title>GTI News - Cadastre-se!</title>
-</head>
-<body>
+<x-base>
 <section class="bg-white dark:bg-gray-900">
   <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
       <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Crie sua Conta</h2>
-      <form action="#">
+      <form action="{{route('SalvaUsuario')}}" method="post">
           <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            @csrf
               <div class="sm:col-span-2">
                   <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome</label>
                   <input type="text" name="nome" id="nome" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Digite seu nome" required="">
@@ -41,5 +34,4 @@
 
 
 
-</body>
-</html>
+</x-base>
