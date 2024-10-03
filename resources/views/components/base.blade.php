@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{$tittle ?? "GTI News - Tudo sobre o GTI voce encontra aqui"}}</title>
 </head>
 <body>
@@ -12,12 +12,14 @@
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="{{route('home')}}" class="flex items-center">
                 <img src="{{asset('imagens/consultant.png')}}" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">GTI - News</span>
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white animate-pulse">GTI - News</span>
             </a>
             <div class="flex items-center lg:order-2">
+           
+
                 @auth
                 <div class="px-2">Olá, {{Auth::user()->name}}</div>
-                <a href=""  class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 border-2">Sair</a>
+                <a href="{{route('logout')}}"  class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 border-2">Sair</a>
 
                 @else
                 <a href="{{route('login')}}" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800 border">Entrar</a>
@@ -50,6 +52,31 @@
                     <li>
                         <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contato</a>
                     </li>
+                    @auth    
+            @if(Auth:: user()->cargo == 1 or Auth:: user()->cargo == 2)
+                    <li class="relative" x-data="{menu:false}">
+                        <a x-on:click="menu = !menu" class="cursor-pointer block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Gestão</a>
+
+                        <div x-show="menu" id="userDropdown1" class="absolute z-10 w-56 divide-y divide-gray-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-gray-600 dark:bg-gray-700">
+          <ul class="p-2 text-start text-sm font-medium text-gray-900 dark:text-white">
+            <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"> Gerenciar Noticias </a></li>
+            <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"> Gerenciar Usuarios</a></li>
+            <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"> Financeiro</a></li>
+            <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"> Estatiscas </a></li>
+
+          </ul>
+      
+          <div class="p-2 text-sm font-medium text-gray-900 dark:text-white">
+            <a href="{{route('logout')}}" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600"> Sair</a>
+          </div>
+        </div>
+
+                    </li>
+                    
+
+                    
+                @endif()
+                @endauth
                 </ul>
             </div>
         </div>
